@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数据处理</title>
+</head>
+
+<body>
+	<form method="post" action="store" id="myform">
+		<!--------------------------------------MODULE_CONTAINER----------------------------------------------------------------------->
+		<label>MODULE_CONTAINER</label>&nbsp;&nbsp;
+		<select name="MODULE_CONTAINER"> 
+			<option value="SOLID">SOLID</option> 
+			<option value="FLUID">FLUID</option> 
+			<option value="HEAT">HEAT</option> 
+			<option value="ELECTRLC">ELECTRLC</option> 
+			<option value="FSI">FSI</option> 
+		</select><br/><br/>
+
+		<!--------------------------------------MODULE----------------------------------------------------------------------->
+		MODULE:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="STATIC" name="MODULE" checked="checked"/>STATIC&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" value="CONTACT" name="MODULE"/>CONTACT<br/><br/>
+
+		<label>METHOD</label>&nbsp;&nbsp;
+		<select name="METHOD"> 
+			<option value="NONE">NONE</option> 
+			<option value="FEM">FEM</option> 
+			<option value="FSFEM">FSFEM</option> 
+			<option value="NSFEM">NSFEM</option> 
+			<option value="FSNSFEM">FSNSFEM</option> 
+		</select><br/><br/>
+
+		<!--------------------------------------POSTPROCESSOR----------------------------------------------------------------------->
+		POSTPROCESSOR:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="TECPLOT" name="POSTPROCESSOR" checked="checked"/>TECPLOT&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" value="VTK" name="POSTPROCESSOR"/>VTK<br/><br/>
+
+		<!--------------------------------------SOLVER_TYPE----------------------------------------------------------------------->
+		<label>SOLVER_TYPE</label>&nbsp;&nbsp;
+		<select name="SOLVER_TYPE"> 
+			<option value="STATIC">STATIC</option> 
+			<option value="EXPLICIT_DYNA">EXPLICIT_DYNA</option> 
+			<option value="IMPLICIT_DYNA">IMPLICIT_DYNA</option> 
+			<option value="SEMIIMPLICIT_CBS">SEMIIMPLICIT_CBS</option> 
+		</select><br/><br/>
+
+		<!--------------------------------------MATERIAL_TYPE----------------------------------------------------------------------->
+		MATERIAL_TYPE:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="LINEAR_ELASTIC" name="MATERIAL_TYPE" checked="checked"/>LINEAR_ELASTIC&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" value="ST_VENNAT" name="MATERIAL_TYPE"/>ST_VENNAT&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" value="MO_RIV" name="MATERIAL_TYPE"/>MO_RIV<br/><br/>
+
+		<!--------------------------------------SOLVER_TYPE----------------------------------------------------------------------->
+		<label>SOLVER_TYPE</label>&nbsp;&nbsp;
+		<select name="SOLVER_TYPE"> 
+			<option value="STATIC">STATIC</option> 
+			<option value="EXPLICIT_DYNA">EXPLICIT_DYNA</option> 
+			<option value="IMPLICIT_DYNA">IMPLICIT_DYNA</option> 
+			<option value="SEMIIMPLICIT_CBS">SEMIIMPLICIT_CBS</option> 
+		</select><br/><br/>
+
+		<!--------------------------------------ELEMENT_TYPE----------------------------------------------------------------------->
+		<label>ELEMENT_TYPE</label>&nbsp;&nbsp;
+		<select name="ELEMENT_TYPE"> 
+			<option value="T3">T3</option> 
+			<option value="T4">T4</option> 
+			<option value="Q4">Q4</option> 
+			<option value="H8">H8</option> 
+			<option value="H8R">H8R</option> 
+		</select><br/><br/>
+
+		<!--------------------------------------MESH_FILENAME----------------------------------------------------------------------->
+		MESH_FILENAME:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="MESH_FILENAME" value=".\my_case\H8.su2"><br/><br/>
+
+		<!--------------------------------------OUTPUT_FILENAME----------------------------------------------------------------------->
+		输出文件路径:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="OUTPUT_FILENAME" value="new.txt"><br/><br/>
+
+		
+		&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" onclick="alert('提交成功')">&nbsp;&nbsp;&nbsp;&nbsp;
+		 <input type="button" name="" value="重置" onclick="formReset()" />
+		 <script type="text/javascript">
+            function formReset()
+			{
+    			document.getElementById("myform").reset();
+			}
+		 </script>
+	</form>
+</body>
+</html>

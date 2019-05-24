@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>提交成功的信息</title>
+</head>
+
+<body>
+	<table border = 1>
+		<tr align="center" rowspan="2">
+			<td colspan="2">DETAIL INFO</td>
+		</tr>
+		<tr align="center">
+			<td colspan="2">&nbsp;&nbsp;</td>
+		</tr>
+         {% for key, value in res.items() %}
+
+            <tr align="center">
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+
+         {% endfor %}
+      <tr align="center"  rowspan="2">
+			<td colspan="2"><input type="button" name="Submit" onclick="location='/'" value="返回提交信息页"/></td>
+		</tr>
+      </table><br/><br/>
+</body>
+</html>

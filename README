@@ -1,0 +1,20 @@
+环境：Python , Flask包
+需要python环境下安装Flask包,运行命令pip install Flask 
+
+启动：进入application文件夹，运行python app.py命令
+
+界面：在浏览器输入127.0.0.1：88后回车显示主界面
+
+
+
+程序细节：
+
+主程序：app.py
+ app.run(host="127.0.0.1",port=88)指定网址和端口号
+ index()函数加载templates文件夹下的index.html静态页面
+ store()函数将index.html页面中输入的表单数据存入txt文件中，并跳转到info.html页面显示
+
+静态页面：templates文件夹下
+ index.html主界面
+ info.html输入的详细信息展示界面
+
