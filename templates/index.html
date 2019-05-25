@@ -4,9 +4,28 @@
 	<title>数据处理</title>
 </head>
 
+<script type="text/javascript">  
+    function myform(){  
+        document.getElementById("myform").submit();  
+    }  
+    function submitForm(){  
+        document.getElementById2("submitForm").submit();  
+    }
+    function formReset()
+	{
+    	document.getElementById("myform").reset();
+	}
+</script> 
+
 <body>
+	*******************************************确定多组参数的组数*******************************************<br/><br/>
+		<form method="post" action="subfrom" id="subform">
+			MARKER_DISPLACEMENT组数:&nbsp;&nbsp;<input type="text" style="width:40px;"name="MARKER_DISPLACEMENT_num" value={{MARKER_DISPLACEMENT_num}}>&nbsp;&nbsp;MARKER_PRESSURE组数:&nbsp;&nbsp;<input type="text" style="width:40px;"name="MARKER_PRESSURE_num" value={{MARKER_PRESSURE_num}}>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" value="确定" onclick="submitForm()">
+		</form><br/>
+	=========================================================================<br/>
 	<form method="post" action="store" id="myform">
-		<!--------------------------------------MODULE_CONTAINER----------------------------------------------------------------------->
+		<!----------------------------------------------------MODULE_CONTAINER----------------------------------------------------------------------->
 		<label>MODULE_CONTAINER</label>&nbsp;&nbsp;
 		<select name="MODULE_CONTAINER"> 
 			<option value="SOLID">SOLID</option> 
@@ -16,7 +35,7 @@
 			<option value="FSI">FSI</option> 
 		</select><br/><br/>
 
-		<!--------------------------------------MODULE----------------------------------------------------------------------->
+		<!----------------------------------------------------------MODULE----------------------------------------------------------------------->
 		MODULE:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="STATIC" name="MODULE" checked="checked"/>STATIC&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="radio" value="CONTACT" name="MODULE"/>CONTACT<br/><br/>
 
@@ -29,11 +48,11 @@
 			<option value="FSNSFEM">FSNSFEM</option> 
 		</select><br/><br/>
 
-		<!--------------------------------------POSTPROCESSOR----------------------------------------------------------------------->
+		<!------------------------------------------------------POSTPROCESSOR----------------------------------------------------------------------->
 		POSTPROCESSOR:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="TECPLOT" name="POSTPROCESSOR" checked="checked"/>TECPLOT&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="radio" value="VTK" name="POSTPROCESSOR"/>VTK<br/><br/>
 
-		<!--------------------------------------SOLVER_TYPE----------------------------------------------------------------------->
+		<!-------------------------------------------------------SOLVER_TYPE----------------------------------------------------------------------->
 		<label>SOLVER_TYPE</label>&nbsp;&nbsp;
 		<select name="SOLVER_TYPE"> 
 			<option value="STATIC">STATIC</option> 
@@ -42,12 +61,20 @@
 			<option value="SEMIIMPLICIT_CBS">SEMIIMPLICIT_CBS</option> 
 		</select><br/><br/>
 
-		<!--------------------------------------MATERIAL_TYPE----------------------------------------------------------------------->
+		<!------------------------------------------------------MATERIAL_TYPE----------------------------------------------------------------------->
 		MATERIAL_TYPE:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="LINEAR_ELASTIC" name="MATERIAL_TYPE" checked="checked"/>LINEAR_ELASTIC&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="radio" value="ST_VENNAT" name="MATERIAL_TYPE"/>ST_VENNAT&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="radio" value="MO_RIV" name="MATERIAL_TYPE"/>MO_RIV<br/><br/>
 
-		<!--------------------------------------SOLVER_TYPE----------------------------------------------------------------------->
+
+		<!------------------------------------------------------MAT_PARA----------------------------------------------------------------------->
+		MAT_PARA:
+		{% for i in range(4) %}
+		&nbsp;&nbsp;<input type=text style="width:60px;" name="MAT_PARA" value="1.0" t_value="" o_value="" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
+		{% endfor %}
+		&nbsp;&nbsp;(*Must be numbers)<br/><br/>
+
+		<!------------------------------------------------------SOLVER_TYPE----------------------------------------------------------------------->
 		<label>SOLVER_TYPE</label>&nbsp;&nbsp;
 		<select name="SOLVER_TYPE"> 
 			<option value="STATIC">STATIC</option> 
@@ -56,7 +83,7 @@
 			<option value="SEMIIMPLICIT_CBS">SEMIIMPLICIT_CBS</option> 
 		</select><br/><br/>
 
-		<!--------------------------------------ELEMENT_TYPE----------------------------------------------------------------------->
+		<!------------------------------------------------------ELEMENT_TYPE----------------------------------------------------------------------->
 		<label>ELEMENT_TYPE</label>&nbsp;&nbsp;
 		<select name="ELEMENT_TYPE"> 
 			<option value="T3">T3</option> 
@@ -66,21 +93,31 @@
 			<option value="H8R">H8R</option> 
 		</select><br/><br/>
 
-		<!--------------------------------------MESH_FILENAME----------------------------------------------------------------------->
+		<!------------------------------------------------------MESH_FILENAME----------------------------------------------------------------------->
 		MESH_FILENAME:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="MESH_FILENAME" value=".\my_case\H8.su2"><br/><br/>
 
-		<!--------------------------------------OUTPUT_FILENAME----------------------------------------------------------------------->
-		输出文件路径:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="OUTPUT_FILENAME" value="new.txt"><br/><br/>
+		<!------------------------------------------------------MARKER_DISPLACEMENT------------------------------------------------------------------>
+		MARKER_DISPLACEMENT:&nbsp;&nbsp;
+			<br/><br/>
+		{% for i in range(MARKER_DISPLACEMENT_num) %}
+			Group({{i+1}})&nbsp;&nbsp;<input type="text" style="width:60px;margin-left:200px;" name="MARKER_DISPLACEMENT" value="ubcxy">&nbsp;&nbsp;(*String)
+			{% for j in range(6) %}
+			&nbsp;&nbsp;&nbsp;&nbsp;<input type=text style="width:40px;" name="MARKER_DISPLACEMENT" value="1.0" t_value="" o_value="" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">
+			{% endfor %}&nbsp;&nbsp;(*Must be numbers)<br/><br/>
+		{% endfor %}
 
+		<!------------------------------------------------------MARKER_PRESSURE------------------------------------------------------------------>
+		MARKER_PRESSURE:<br/><br/>
+		{% for i in range(MARKER_PRESSURE_num) %}
+			Group({{i+1}})&nbsp;&nbsp;<input type="text" style="width:60px;margin-left:200px;" name="MARKER_PRESSURE" value="pbc">&nbsp;&nbsp;(*String)
+			&nbsp;&nbsp;&nbsp;&nbsp;<input type=text style="width:60px;" name="MARKER_PRESSURE" value="100.0" t_value="" o_value="" onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}">&nbsp;&nbsp;(*Must be numbers)<br/><br/>
+		{% endfor %}
 		
-		&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" onclick="alert('提交成功')">&nbsp;&nbsp;&nbsp;&nbsp;
-		 <input type="button" name="" value="重置" onclick="formReset()" />
-		 <script type="text/javascript">
-            function formReset()
-			{
-    			document.getElementById("myform").reset();
-			}
-		 </script>
+		<!------------------------------------------------------OUTPUT_FILENAME----------------------------------------------------------------------->
+		输出文件路径:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="OUTPUT_FILENAME" value=".\result\output_H8"><br/><br/>
+
+		*******************************************&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" onclick="myform();alert('提交成功')"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 <input type="button" name="" value="重置" onclick="formReset()" />*******************************************
 	</form>
 </body>
 </html>
